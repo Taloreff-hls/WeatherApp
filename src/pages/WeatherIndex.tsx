@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchWeather } from '../services/weather.service';
 import { SearchSection } from '../cmps/SearchSection';
 import { WeatherDisplay } from '../cmps/WeatherDisplay';
@@ -8,29 +8,7 @@ import styled from 'styled-components';
 export function WeatherIndex() {
     const [searchInput, setSearchInput] = useState<string>("");
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
-    const [locationWeather, setLocationWeather] = useState<any>(null);
     const [searchedWeather, setSearchedWeather] = useState<any>(null);
-
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    const weatherData = await fetchWeather({ lat: latitude, lng: longitude });
-                    if (weatherData) {
-                        setLocationWeather(weatherData);
-                    } else {
-                        console.error("failed to fetch location")
-                    }
-                },
-                (error) => {
-                    console.error("failed to fetch location",error)
-                }
-            );
-        } else {
-            console.error("failed to fetch location")
-        }
-    }, []);
 
     async function handleSearch(){
         if(searchInput){
@@ -50,7 +28,7 @@ export function WeatherIndex() {
     return (
         <Container>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
-            <WeatherDisplay searchedWeather={searchedWeather} locationWeather={locationWeather} />
+            <WeatherDisplay searchedWeather={searchedWeather} />
             <RecentSearches searches={recentSearches} />
         </Container>
     );

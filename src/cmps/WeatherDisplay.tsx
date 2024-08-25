@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import { CurrentWeather } from './CurrentWeather';
-import { LocationWeather } from './LocationWeather';
 
 interface WeatherDisplayProps {
     searchedWeather: any;
-    locationWeather: any;
 }
 
-export function WeatherDisplay({ searchedWeather, locationWeather }: WeatherDisplayProps) {
+export function WeatherDisplay({ searchedWeather }: WeatherDisplayProps) {
     return (
         <WeatherContainer>
             <CurrentWeather weatherData={searchedWeather} />
-            <LocationWeather weatherData={locationWeather} />
         </WeatherContainer>
     );
 }
