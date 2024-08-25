@@ -1,14 +1,38 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import { fetchWeather } from '../services/weather.service';
+import styled from 'styled-components';
+
 import { SearchSection } from '../cmps/SearchSection';
 import { WeatherDisplay } from '../cmps/WeatherDisplay';
 import { RecentSearches } from '../cmps/RecentSearches';
-import styled from 'styled-components';
 
 export function WeatherIndex() {
     const [searchInput, setSearchInput] = useState<string>("");
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
+    const [locationWeather, setLocationWeather] = useState<any>(null);
     const [searchedWeather, setSearchedWeather] = useState<any>(null);
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const weatherData = await fetchWeather({ lat: latitude, lng: longitude });
+                    if (weatherData) {
+                        setLocationWeather(weatherData);
+                    } else {
+                        console.error("Failed to get location")
+                    }
+                },
+                (error) => {
+                    console.error("Error occurred while fetching location:", error.message);
+                }
+            );
+        } else {
+            console.error("Failed to get location")
+        }
+    }, []);
 
     async function handleSearch(){
         if(searchInput){
@@ -18,23 +42,22 @@ export function WeatherIndex() {
                 setRecentSearches([searchInput, ...recentSearches]);
                 setSearchInput("");
             } else {
-                console.error("failed to fetch location")
+                console.error("Failed to get location")
             }
         } else {
-            console.error("failed to fetch location")
+            console.error("Failed to get location")
         }
     }
 
     return (
         <Container>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
-            <WeatherDisplay searchedWeather={searchedWeather} />
+            <WeatherDisplay searchedWeather={searchedWeather} locationWeather={locationWeather} />
             <RecentSearches searches={recentSearches} />
         </Container>
     );
 }
 
-// Styled components
 const Container = styled.div`
     padding: 20px;
     display: flex;
