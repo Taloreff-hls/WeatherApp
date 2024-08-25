@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  ::selection {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  html {
+    font-family: "AirbnbCereal_W_Bk", sans-serif;
+    line-height: 1.6;
+    color: #000;
+    height: 100%;
+  }
+  
+  body {
+    font-size: rem(18px);
+    margin: 0;
+    margin: auto;
+    height: 100%;
+    font-family: sans-serif;
+  }
+  
+  #root {
+    height: 100%;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "AirbnbCereal_W_Bk", sans-serif;
+    line-height: 1;
+  }
+  
+  img {
+    width: 100%;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .bold {
+    font-weight: 600;
+    color: #000;
+    font-size: 13px;
+  }
