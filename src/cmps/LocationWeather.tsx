@@ -1,35 +1,47 @@
-import styled from 'styled-components';
+import { IWeatherData } from '../interfaces';
+import { FaTemperatureLow, FaWind, FaTint } from 'react-icons/fa';
+import { 
+    WeatherContainer, 
+    WeatherContent, 
+    LocationInfo, 
+    ConditionInfo, 
+    WeatherDetails, 
+    DetailItem, 
+    WeatherIcon 
+} from './CurrentWeather';
 
-interface LocationWeatherProps {
-    weatherData: any;
-}
-
-export function LocationWeather({ weatherData }: LocationWeatherProps) {
+export function LocationWeather({ weatherData }: IWeatherData) {
     return (
         <WeatherContainer>
             <h2>Your Location's Weather</h2>
             {weatherData ? (
-                <div>
-                    <p>{weatherData.location.name}, {weatherData.location.country}</p>
-                    <p>Temperature: {weatherData.current.temp_c}°C</p>
-                    <p>Condition: {weatherData.current.condition.text}</p>
-                    <WeatherIcon src={weatherData.current.condition.icon} alt="Weather icon" />
-                </div>
+                <WeatherContent>
+                    <LocationInfo>
+                        <h3>{weatherData.location.name}, {weatherData.location.country}</h3>
+                        <p>{weatherData.current.temp_c}°C</p>
+                    </LocationInfo>
+                    <ConditionInfo>
+                        <WeatherIcon src={weatherData.current.condition.icon} alt="Weather icon" />
+                        <p>{weatherData.current.condition.text}</p>
+                    </ConditionInfo>
+                    <WeatherDetails>
+                        <DetailItem>
+                            <FaTemperatureLow />
+                            <p>Feels like {weatherData.current.feelslike_c}°</p>
+                        </DetailItem>
+                        <DetailItem>
+                            <FaTint />
+                            <p>Humidity {weatherData.current.humidity}%</p>
+                        </DetailItem>
+                        <DetailItem>
+                            <FaWind />
+                            <p>Wind {weatherData.current.wind_kph} kph</p>
+                        </DetailItem>
+                    </WeatherDetails>
+                </WeatherContent>
             ) : (
                 <p>No location data available.</p>
             )}
         </WeatherContainer>
     );
 }
-
-const WeatherContainer = styled.div`
-    flex: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
-    border-radius: 8px;
-`;
-
-const WeatherIcon = styled.img`
-    width: 64px;
-    height: 64px;
-`;

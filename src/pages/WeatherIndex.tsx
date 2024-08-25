@@ -4,8 +4,9 @@ import { fetchWeather } from '../services/weather.service';
 import styled from 'styled-components';
 
 import { SearchSection } from '../cmps/SearchSection';
-import { WeatherDisplay } from '../cmps/WeatherDisplay';
 import { RecentSearches } from '../cmps/RecentSearches';
+import { CurrentWeather } from '../cmps/CurrentWeather';
+import { LocationWeather } from '../cmps/LocationWeather';
 
 export function WeatherIndex() {
     const [searchInput, setSearchInput] = useState<string>("");
@@ -52,7 +53,8 @@ export function WeatherIndex() {
     return (
         <Container>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
-            <WeatherDisplay searchedWeather={searchedWeather} locationWeather={locationWeather} />
+            <CurrentWeather weatherData={searchedWeather}/>
+            <LocationWeather weatherData={locationWeather}/>
             <RecentSearches searches={recentSearches} />
         </Container>
     );
@@ -64,4 +66,5 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(to bottom, #E6F8FB, #93E1F1);
 `;

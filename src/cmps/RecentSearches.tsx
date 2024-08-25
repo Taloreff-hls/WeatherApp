@@ -19,6 +19,7 @@ export function RecentSearches({ searches }: RecentSearchesProps) {
 
 const SearchesContainer = styled.div`
     margin-top: 20px;
+    color: rgb(74,111,161);
     ul {
         list-style-type: none;
         padding: 0;
