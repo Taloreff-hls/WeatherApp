@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import { fetchWeather } from '../services/weather.service';
-import styled from 'styled-components';
 
 import { SearchSection } from '../cmps/SearchSection';
 import { RecentSearches } from '../cmps/RecentSearches';
 import { CurrentWeather } from '../cmps/CurrentWeather';
 import { LocationWeather } from '../cmps/LocationWeather';
+import { PageContainer } from '../styles';
 
 export function WeatherIndex() {
     const [searchInput, setSearchInput] = useState<string>("");
@@ -51,20 +51,12 @@ export function WeatherIndex() {
     }
 
     return (
-        <Container>
+        <PageContainer>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
             <CurrentWeather weatherData={searchedWeather}/>
             <LocationWeather weatherData={locationWeather}/>
             <RecentSearches searches={recentSearches} />
-        </Container>
+        </PageContainer>
     );
 }
 
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, #E6F8FB, #93E1F1);
-`;

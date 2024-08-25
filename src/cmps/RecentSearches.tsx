@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { SearchesContainer } from '../styles';
 
 interface RecentSearchesProps {
     searches: string[];
@@ -6,7 +6,7 @@ interface RecentSearchesProps {
 
 export function RecentSearches({ searches }: RecentSearchesProps) {
     return (
-        <SearchesContainer>
+        searches.length > 0 && <SearchesContainer>
             <h3>Recent Searches</h3>
             <ul>
                 {searches.map((city, index) => (
@@ -17,17 +17,3 @@ export function RecentSearches({ searches }: RecentSearchesProps) {
     );
 }
 
-const SearchesContainer = styled.div`
-    margin-top: 20px;
-    color: rgb(74,111,161);
-    ul {
-        list-style-type: none;
-        padding: 0;
-        li {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-        }
-    }
-`;

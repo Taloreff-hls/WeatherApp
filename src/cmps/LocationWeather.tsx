@@ -8,39 +8,40 @@ import {
     WeatherDetails, 
     DetailItem, 
     WeatherIcon 
-} from './CurrentWeather';
+} from '../styles';
+import Typography from '@mui/material/Typography';
 
 export function LocationWeather({ weatherData }: IWeatherData) {
     return (
         <WeatherContainer>
-            <h2>Your Location's Weather</h2>
+            <Typography variant="h5">Your Location's Weather</Typography>
             {weatherData ? (
                 <WeatherContent>
                     <LocationInfo>
-                        <h3>{weatherData.location.name}, {weatherData.location.country}</h3>
-                        <p>{weatherData.current.temp_c}°C</p>
+                        <Typography variant="h6">{weatherData.location.name}, {weatherData.location.country}</Typography>
+                        <Typography variant="h3">{weatherData.current.temp_c}°C</Typography>
                     </LocationInfo>
                     <ConditionInfo>
                         <WeatherIcon src={weatherData.current.condition.icon} alt="Weather icon" />
-                        <p>{weatherData.current.condition.text}</p>
+                        <Typography variant="body1">{weatherData.current.condition.text}</Typography>
                     </ConditionInfo>
                     <WeatherDetails>
                         <DetailItem>
                             <FaTemperatureLow />
-                            <p>Feels like {weatherData.current.feelslike_c}°</p>
+                            <Typography variant="body2">Feels like {weatherData.current.feelslike_c}°</Typography>
                         </DetailItem>
                         <DetailItem>
                             <FaTint />
-                            <p>Humidity {weatherData.current.humidity}%</p>
+                            <Typography variant="body2">Humidity {weatherData.current.humidity}%</Typography>
                         </DetailItem>
                         <DetailItem>
                             <FaWind />
-                            <p>Wind {weatherData.current.wind_kph} kph</p>
+                            <Typography variant="body2">Wind {weatherData.current.wind_kph} kph</Typography>
                         </DetailItem>
                     </WeatherDetails>
                 </WeatherContent>
             ) : (
-                <p>No location data available.</p>
+                <Typography variant="body1">No location data available.</Typography>
             )}
         </WeatherContainer>
     );
