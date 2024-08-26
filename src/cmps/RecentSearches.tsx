@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import { SearchesContainer } from '../styles';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
 
 interface RecentSearchesProps {
     searches: string[];
@@ -6,27 +10,15 @@ interface RecentSearchesProps {
 
 export function RecentSearches({ searches }: RecentSearchesProps) {
     return (
-        <SearchesContainer>
-            <h3>Recent Searches</h3>
-            <ul>
-                {searches.map((city, index) => (
-                    <li key={index}>{city}</li>
-                ))}
-            </ul>
-        </SearchesContainer>
+        searches.length > 0 && (
+            <SearchesContainer>
+                <Typography variant="h4">Recent Searches</Typography>
+                <List>
+                    {searches.map((city, index) => (
+                        <ListItem key={index}>{city}</ListItem>
+                    ))}
+                </List>
+            </SearchesContainer>
+        )
     );
 }
-
-const SearchesContainer = styled.div`
-    margin-top: 20px;
-    ul {
-        list-style-type: none;
-        padding: 0;
-        li {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-        }
-    }
-`;

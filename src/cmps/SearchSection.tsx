@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { SearchButton, SearchContainer, SearchInputContainer } from "../styles";
 
 interface SearchSectionProps {
     searchInput: string;
@@ -9,31 +9,16 @@ interface SearchSectionProps {
 export function SearchSection({ searchInput, setSearchInput, handleSearch }: SearchSectionProps) {
     return (
         <SearchContainer>
-            <input 
-                type="text" 
-                placeholder="Enter city name"
-                value={searchInput}
-                onChange={(ev) => setSearchInput(ev.target.value)}
-            />
-            <button onClick={handleSearch}>Search</button>
+            <SearchInputContainer>
+                <input 
+                    type="text" 
+                    placeholder="Enter city name"
+                    value={searchInput}
+                    onChange={(ev) => setSearchInput(ev.target.value)}
+                />
+                <SearchButton onClick={handleSearch} />
+            </SearchInputContainer>
         </SearchContainer>
     );
 }
 
-const SearchContainer = styled.div`
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-
-    input {
-        padding: 10px;
-        font-size: 16px;
-        flex-grow: 1;
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-`;
