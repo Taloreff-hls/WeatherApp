@@ -83,18 +83,6 @@ export const SearchesContainer = styled.div`
     color: rgb(74,111,161);
 `;
 
-export const RecentSearch = styled.ul`
-    list-style-type: none;
-    padding: 0;
-
-    li {
-        background-color: #f9f9f9;
-        padding: 10px;
-        margin-bottom: 5px;
-        border-radius: 4px;
-    }
-`;
-
 export const SearchContainer = styled.div`
     display: flex;
     justify-content: center;

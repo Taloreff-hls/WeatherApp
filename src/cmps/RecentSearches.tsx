@@ -1,5 +1,8 @@
-import { SearchesContainer, RecentSearch } from '../styles';
+import { SearchesContainer } from '../styles';
 import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
 
 interface RecentSearchesProps {
     searches: string[];
@@ -10,11 +13,11 @@ export function RecentSearches({ searches }: RecentSearchesProps) {
         searches.length > 0 && (
             <SearchesContainer>
                 <Typography variant="h4">Recent Searches</Typography>
-                <RecentSearch>
+                <List>
                     {searches.map((city, index) => (
-                        <li key={index}>{city}</li>
+                        <ListItem key={index}>{city}</ListItem>
                     ))}
-                </RecentSearch>
+                </List>
             </SearchesContainer>
         )
     );
