@@ -2,7 +2,11 @@ import axios from 'axios';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-export const fetchWeather = async (query: string | { lat: number; lng: number }) => {
+export const fetchWeather = async (query: string | { lat: number; lng: number } | null | undefined) => {
+    if (!query) {
+        return Promise.reject(new Error("Invalid query: Location coordinates or city name must be provided"));
+    }
+
     try {
         let response;
         if (typeof query === 'string') {
