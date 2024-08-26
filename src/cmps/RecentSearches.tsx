@@ -1,4 +1,5 @@
-import { SearchesContainer } from '../styles';
+import { SearchesContainer, RecentSearch } from '../styles';
+import Typography from '@mui/material/Typography';
 
 interface RecentSearchesProps {
     searches: string[];
@@ -6,14 +7,15 @@ interface RecentSearchesProps {
 
 export function RecentSearches({ searches }: RecentSearchesProps) {
     return (
-        searches.length > 0 && <SearchesContainer>
-            <h3>Recent Searches</h3>
-            <ul>
-                {searches.map((city, index) => (
-                    <li key={index}>{city}</li>
-                ))}
-            </ul>
-        </SearchesContainer>
+        searches.length > 0 && (
+            <SearchesContainer>
+                <Typography variant="h4">Recent Searches</Typography>
+                <RecentSearch>
+                    {searches.map((city, index) => (
+                        <li key={index}>{city}</li>
+                    ))}
+                </RecentSearch>
+            </SearchesContainer>
+        )
     );
 }
-
