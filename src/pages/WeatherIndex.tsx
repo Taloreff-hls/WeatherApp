@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { fetchWeather } from '../services/weather.service';
-import { SearchSection } from '../cmps/SearchSection';
-import { RecentSearches } from '../cmps/RecentSearches';
-import { CurrentWeather } from '../cmps/CurrentWeather';
-import { LocationWeather } from '../cmps/LocationWeather';
+import SearchSection from '../cmps/SearchSection';
+import RecentSearches from '../cmps/RecentSearches';
+import CurrentWeather from '../cmps/CurrentWeather';
+import LocationWeather from '../cmps/LocationWeather';
 import { PageContainer } from '../styles';
 import { useQuery } from '@tanstack/react-query';
 import { IWeatherData } from '../interfaces';

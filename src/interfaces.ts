@@ -20,3 +20,13 @@ export interface IWeatherData {
     location: Location;
     current: CurrentWeatherData;
 }
+
+export interface ISearchesListProps {
+    searches: string[];
+}
+
+export interface ISearchSectionProps {
+    searchInput: string;
+    setSearchInput: (value: string) => void;
+    handleSearch: () => void;
+}

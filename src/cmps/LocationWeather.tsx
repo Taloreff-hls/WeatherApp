@@ -11,7 +11,7 @@ import {
 } from '../styles';
 import Typography from '@mui/material/Typography';
 
-export function LocationWeather({ location, current }: IWeatherData) {
+const LocationWeather: React.FC<IWeatherData> = ({ location, current }) => {
     return (
         <WeatherContainer>
             <Typography variant="h5">Your Location's Weather</Typography>
@@ -46,3 +46,5 @@ export function LocationWeather({ location, current }: IWeatherData) {
         </WeatherContainer>
     );
 }
+
+export default LocationWeather;
