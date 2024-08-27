@@ -1,62 +1,66 @@
 import { useState, useEffect } from 'react';
-
 import { fetchWeather } from '../services/weather.service';
-
-import { SearchSection } from '../cmps/SearchSection';
-import { RecentSearches } from '../cmps/RecentSearches';
-import { CurrentWeather } from '../cmps/CurrentWeather';
-import { LocationWeather } from '../cmps/LocationWeather';
+import SearchSection from '../cmps/SearchSection';
+import RecentSearches from '../cmps/RecentSearches';
+import WeatherDetails from '../cmps/WeatherDetails';
 import { PageContainer } from '../styles';
+import { useQuery } from '@tanstack/react-query';
+import { IWeatherData } from '../interfaces';
 
 export function WeatherIndex() {
     const [searchInput, setSearchInput] = useState<string>("");
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
-    const [locationWeather, setLocationWeather] = useState<any>(null);
-    const [searchedWeather, setSearchedWeather] = useState<any>(null);
+    const [locationCoords, setLocationCoords] = useState<{ lat: number, lng: number } | string>("");
+    const [submittedSearch, setSubmittedSearch] = useState<string>("");
+
+    const { data: locationWeather } = useQuery<IWeatherData>(
+        { 
+            queryKey: ['locationWeather', locationCoords],
+            queryFn: () => fetchWeather(locationCoords),
+            enabled: !!locationCoords 
+        }
+    );
+
+    const { data: searchedWeather } = useQuery<IWeatherData>(
+        {
+            queryKey: ['searchedWeather', submittedSearch],
+            queryFn: () => fetchWeather(submittedSearch),
+            enabled: !!submittedSearch, 
+        }
+    );
 
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                async (position) => {
+                (position) => {
                     const { latitude, longitude } = position.coords;
-                    const weatherData = await fetchWeather({ lat: latitude, lng: longitude });
-                    if (weatherData) {
-                        setLocationWeather(weatherData);
-                    } else {
-                        console.error("Failed to get location")
-                    }
+                    setLocationCoords({ lat: latitude, lng: longitude });
                 },
                 (error) => {
                     console.error("Error occurred while fetching location:", error.message);
                 }
             );
         } else {
-            console.error("Failed to get location")
+            console.error("Geolocation is not supported by this browser.");
         }
     }, []);
 
-    async function handleSearch(){
-        if(searchInput){
-            const weatherData = await fetchWeather(searchInput);
-            if (weatherData) {
-                setSearchedWeather(weatherData);
-                setRecentSearches([searchInput, ...recentSearches]);
-                setSearchInput("");
-            } else {
-                console.error("Failed to get location")
-            }
+    const handleSearch = () => {
+        if (searchInput) {
+            setSubmittedSearch(searchInput);
+            setRecentSearches([searchInput, ...recentSearches]);
+            setSearchInput("");
         } else {
-            console.error("Failed to get location")
+            console.error("Please enter a city name.");
         }
-    }
+    };
 
     return (
         <PageContainer>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
-            <CurrentWeather weatherData={searchedWeather}/>
-            <LocationWeather weatherData={locationWeather}/>
+            {searchedWeather && <WeatherDetails title="Current Weather" weatherData={searchedWeather} />}
+            {locationWeather && <WeatherDetails title="Your Location's Weather" weatherData={locationWeather} />}
             <RecentSearches searches={recentSearches} />
         </PageContainer>
     );
 }
-
