@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchWeather } from '../services/weather.service';
 import SearchSection from '../cmps/SearchSection';
 import RecentSearches from '../cmps/RecentSearches';
-import CurrentWeather from '../cmps/CurrentWeather';
-import LocationWeather from '../cmps/LocationWeather';
+import WeatherDetails from '../cmps/WeatherDetails';
 import { PageContainer } from '../styles';
 import { useQuery } from '@tanstack/react-query';
 import { IWeatherData } from '../interfaces';
@@ -50,7 +49,7 @@ export function WeatherIndex() {
         if (searchInput) {
             setSubmittedSearch(searchInput);
             setRecentSearches([searchInput, ...recentSearches]);
-            setSearchInput("")
+            setSearchInput("");
         } else {
             console.error("Please enter a city name.");
         }
@@ -59,8 +58,8 @@ export function WeatherIndex() {
     return (
         <PageContainer>
             <SearchSection searchInput={searchInput} setSearchInput={setSearchInput} handleSearch={handleSearch} />
-            {searchedWeather && <CurrentWeather location={searchedWeather.location} current={searchedWeather.current} />}
-            {locationWeather && <LocationWeather location={locationWeather.location} current={locationWeather.current} />}
+            {searchedWeather && <WeatherDetails title="Current Weather" weatherData={searchedWeather} />}
+            {locationWeather && <WeatherDetails title="Your Location's Weather" weatherData={locationWeather} />}
             <RecentSearches searches={recentSearches} />
         </PageContainer>
     );
