@@ -1,12 +1,7 @@
+import { ISearchSectionProps } from "../interfaces";
 import { SearchButton, SearchContainer, SearchInputContainer } from "../styles";
 
-interface SearchSectionProps {
-    searchInput: string;
-    setSearchInput: (value: string) => void;
-    handleSearch: () => void;
-}
-
-export function SearchSection({ searchInput, setSearchInput, handleSearch }: SearchSectionProps) {
+const SearchSection: React.FC<ISearchSectionProps> = ({ searchInput, setSearchInput, handleSearch }) => {
     return (
         <SearchContainer>
             <SearchInputContainer>
@@ -21,4 +16,6 @@ export function SearchSection({ searchInput, setSearchInput, handleSearch }: Sea
         </SearchContainer>
     );
 }
+
+export default SearchSection;
 
